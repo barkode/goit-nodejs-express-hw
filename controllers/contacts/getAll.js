@@ -1,4 +1,4 @@
-const Contact = require("../../models");
+const { Contact } = require("../../models/contact");
 const { ctrlWrapper } = require("../../utils");
 
 const getAll = async (req, res) => {
