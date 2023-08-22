@@ -12,23 +12,25 @@ const {
 
 const { validateBody, isValidId } = require("../../middlewares");
 
-const {
-  addSchema,
-  updateStatusContactSchema,
-} = require("../../schemas/contacts");
+const { schemas } = require("../../models/contact");
 
 router.get("/", getAll);
 
 router.get("/:contactId", isValidId, getById);
 
-router.post("/", validateBody(addSchema), add);
+router.post("/", validateBody(schemas.addSchema), add);
 
-router.put("/:contactId", isValidId, validateBody(addSchema), updateById);
+router.put(
+  "/:contactId",
+  isValidId,
+  validateBody(schemas.addSchema),
+  updateById
+);
 
 router.patch(
   "/:contactId/favorite",
   isValidId,
-  validateBody(updateStatusContactSchema),
+  validateBody(schemas.updateStatusContactSchema),
   updateStatusContact
 );
 
