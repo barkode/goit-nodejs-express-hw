@@ -18,7 +18,6 @@ const contactSchema = new Schema(
     },
     phone: {
       type: String,
-      match: phoneRegexp,
     },
     favorite: {
       type: Boolean,
@@ -38,7 +37,7 @@ contactSchema.post("save", handleMongooseError);
 const addSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().pattern(emailRegexp).required(),
-  phone: Joi.string().pattern(phoneRegexp).required(),
+  phone: Joi.string().required(),
   favorite: Joi.boolean(),
 });
 
