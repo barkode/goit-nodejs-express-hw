@@ -1,5 +1,5 @@
 const path = require("path");
-// const fs = require("fs/promises");
+const fs = require("fs/promises");
 const Jimp = require("jimp");
 
 const { User } = require("../../models/user");
@@ -19,28 +19,21 @@ const avatarsDir = path.join(__dirname, "..", "..", "public", "avatars");
 const updateAvatar = async (req, res) => {
   const { _id } = req.user;
   const { path: tempUpload, originalname } = req.file;
-
   try {
     const image = await Jimp.read(tempUpload);
-    const filename = `${_id}_${originalname}`;
-    const resultUpload = path.join(avatarsDir, filename);
     image.resize(250, 250);
     image.quality(75);
-    image.writeAsync(resultUpload);
-    const avatarURL = path.join("avatars", filename);
-    await User.findByIdAndUpdate(_id, { avatarURL });
-    res.status(201).json({ avatarURL });
+    image.writeAsync(tempUpload);
   } catch {
     throw HttpError(500, "Not supported mime-type");
   }
+  const filename = `${_id}_${originalname}`;
+  const resultUpload = path.join(avatarsDir, filename);
+  const avatarURL = path.join("avatars", filename);
+  await fs.rename(tempUpload, resultUpload);
+  await User.findByIdAndUpdate(_id, { avatarURL });
 
-  // const originalMime = image._originalMime;
-  // const findMime = supportedMime.find(originalMime);
-  // if (!findMime) {
-  //   throw HttpError(500, "Not supported mime-type");
-  // }
-
-  // await fs.rename(tempUpload, resultUpload);
+  res.status(200).json({ avatarURL });
 };
 
 module.exports = { updateAvatar: ctrlWrapper(updateAvatar) };
