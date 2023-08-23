@@ -25,6 +25,6 @@ router.post("/logout", authenticate, logout);
 
 // change avatar
 
-router.patch("/avatars", authenticate, upload.single("avatar", updateAvatar));
+router.patch("/avatars", authenticate, upload.single("avatar"), updateAvatar);
 
 module.exports = router;
