@@ -27,6 +27,9 @@ const updateAvatar = async (req, res) => {
     image.resize(250, 250);
     image.quality(75);
     image.writeAsync(resultUpload);
+    const avatarURL = path.join("avatars", filename);
+    await User.findByIdAndUpdate(_id, { avatarURL });
+    res.status(201).json({ avatarURL });
   } catch {
     throw HttpError(500, "Not supported mime-type");
   }
@@ -38,10 +41,6 @@ const updateAvatar = async (req, res) => {
   // }
 
   // await fs.rename(tempUpload, resultUpload);
-  const avatarURL = path.join("avatars", filename);
-  await User.findByIdAndUpdate(_id, { avatarURL });
-
-  res.status(201).json({ avatarURL });
 };
 
 module.exports = { updateAvatar: ctrlWrapper(updateAvatar) };
