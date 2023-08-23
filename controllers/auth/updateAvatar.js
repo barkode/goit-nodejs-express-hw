@@ -7,15 +7,6 @@ const { HttpError, ctrlWrapper } = require("../../utils");
 
 const avatarsDir = path.join(__dirname, "..", "..", "public", "avatars");
 
-// const supportedMime = [
-//   "image/png",
-//   "image/jpeg",
-//   "image/jpg",
-//   "image/bmp",
-//   "image/tiff",
-//   "image/gif",
-// ];
-
 const updateAvatar = async (req, res) => {
   const { _id } = req.user;
   const { path: tempUpload, originalname } = req.file;
