@@ -40,7 +40,11 @@ const addSchema = Joi.object({
 });
 
 const updateStatusContactSchema = Joi.object({
-  favorite: Joi.boolean().required(),
+  favorite: Joi.boolean().required().messages({
+    "boolean:base": `"favorite" should be a type "bool"`,
+    "boolean.empty": `"favorite" cannot be empty`,
+    "any.required": `"favorite" is a required field`,
+  }),
 });
 
 const schemas = { addSchema, updateStatusContactSchema };
