@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const gravatar = require("gravatar");
-const { v4: uuidv4 } = require("uuid");
+const { randomUUID } = require("crypto");
 
 const { User } = require("../../models/user");
 const { HttpError, ctrlWrapper, sendEmail } = require("../../utils");
@@ -12,7 +12,7 @@ const register = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user) {
-    throw HttpError(409, "Email already exist.");
+    throw HttpError(409, "Email already in use.");
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
@@ -21,8 +21,7 @@ const register = async (req, res) => {
     { s: "250", r: "g", d: "robohash" },
     false
   );
-  const verificationToken = uuidv4();
-  console.log(verificationToken);
+  const verificationToken = randomUUID();
 
   const newUser = await User.create({
     ...req.body,
@@ -36,7 +35,7 @@ const register = async (req, res) => {
     subject: "Verify your email",
     html: `<a
         target="_blank"
-        href="${BASE_URL}/api/auth/verify/${verificationToken}">
+        href="${BASE_URL}/api/users/verify/${verificationToken}">
         Click here to verify your email.
       </a>`,
   };
