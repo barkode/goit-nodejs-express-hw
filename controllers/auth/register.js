@@ -3,7 +3,8 @@ const gravatar = require("gravatar");
 const { randomUUID } = require("crypto");
 
 const { User } = require("../../models/user");
-const { HttpError, ctrlWrapper, sendEmail } = require("../../utils");
+const { HttpError, ctrlWrapper } = require("../../utils");
+const { sendEmail } = require("../../services/email");
 
 const { BASE_URL } = process.env;
 
