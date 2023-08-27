@@ -5,9 +5,8 @@ const {
   getCurrent,
   logout,
   updateAvatar,
-  verifyEmail,
-  resendVerifyEmail,
 } = require("../../controllers/auth");
+const { verifyEmail, resendVerifyEmail } = require("../../services/email");
 const { validateBody, authenticate, upload } = require("../../middlewares");
 const { schemas } = require("../../models/user");
 

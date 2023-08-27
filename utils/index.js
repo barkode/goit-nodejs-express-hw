@@ -2,7 +2,7 @@ const HttpError = require("./HttpError");
 const ctrlWrapper = require("./ctrlWrapper");
 const dbConnection = require("./dbConnection");
 const handleMongooseError = require("./handleMongooseError");
-const sendEmail = require("./sendEmail");
+const sendEmail = require("../services/email/sendEmail");
 
 module.exports = {
   HttpError,
