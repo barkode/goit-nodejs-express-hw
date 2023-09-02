@@ -25,6 +25,7 @@ const userSchema = new Schema(
       enum: subscribList,
       default: "starter",
     },
+    roles: { type: String },
     token: { type: String, default: "" },
     avatarURL: { type: String, required: true },
     verify: { type: Boolean, default: false },
