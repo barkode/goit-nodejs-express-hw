@@ -3,6 +3,7 @@ const errorHandler = require("./errorHandler");
 const isValidId = require("./isValidId");
 const authenticate = require("./authenticate");
 const upload = require("./upload");
+const userRoles = require("./userRoles");
 
 module.exports = {
   validateBody,
@@ -10,4 +11,5 @@ module.exports = {
   isValidId,
   authenticate,
   upload,
+  userRoles,
 };
